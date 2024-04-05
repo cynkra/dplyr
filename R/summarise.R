@@ -117,20 +117,9 @@
 #' summarise(starwars, avg = mean(.data[[var]], na.rm = TRUE))
 #' # Learn more in ?dplyr_data_masking
 summarise <- function(.data, ..., .groups = NULL) {
-  ..new_caller_env <- env_clone_lazy(parent.frame())
-  ..call = sys.call()
-  archive(
-    call = ..call,
-    env = ..new_caller_env
-  )
-  on.exit({
-    env_cleanup(..new_caller_env)
-  })
-  ..call[[1]] <- function(.data, ...) {
-    UseMethod("summarise")
-  }
-  eval(..call, ..new_caller_env)
+  UseMethod("summarise")
 }
+
 #' @rdname summarise
 #' @export
 summarize <- summarise

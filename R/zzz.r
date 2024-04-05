@@ -1,4 +1,8 @@
 .onLoad <- function(libname, pkgname) {
+  mutate <<- set_collector(mutate)
+  summarise <<- set_collector(summarise)
+  summarize <<- set_collector(summarize)
+
   op <- options()
   op.dplyr <- list(
     dplyr.show_progress = TRUE

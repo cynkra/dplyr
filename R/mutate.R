@@ -153,19 +153,7 @@
 #' mutate(starwars, prod = .data[[vars[[1]]]] * .data[[vars[[2]]]])
 #' # Learn more in ?dplyr_data_masking
 mutate <- function(.data, ...) {
-  ..new_caller_env <- env_clone_lazy(parent.frame())
-  ..call = sys.call()
-  archive(
-    call = ..call,
-    env = ..new_caller_env
-  )
-  on.exit({
-    env_cleanup(..new_caller_env)
-  })
-  ..call[[1]] <- function(.data, ...) {
-    UseMethod("mutate")
-  }
-  eval(..call, ..new_caller_env)
+  UseMethod("mutate")
 }
 
 #' @rdname mutate
