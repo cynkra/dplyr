@@ -119,6 +119,7 @@
 summarise <- function(.data, ..., .groups = NULL) {
   UseMethod("summarise")
 }
+
 #' @rdname summarise
 #' @export
 summarize <- summarise
