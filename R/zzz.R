@@ -1,7 +1,22 @@
 .onLoad <- function(libname, pkgname) {
   if (Sys.getenv("COLLECTOR_PATH") != "") {
     dir.create(Sys.getenv("COLLECTOR_PATH"), recursive = TRUE, showWarnings = FALSE)
-    collector::set_collector(path = Sys.getenv("COLLECTOR_PATH"))
+    collector::set_collector(
+      funs = c(
+        "add_count", "anti_join", "arrange", "auto_copy", "collect",
+        "compute", "count", "cross_join", "distinct", "do", "explain",
+        "full_join", "group_by", "group_indices", "group_keys", "group_map",
+        "group_modify", "group_nest", "group_size", "group_split", "group_trim",
+        "group_vars", "groups", "head", "inner_join", "intersect", "left_join",
+        "mutate", "n_groups", "nest_by", "nest_join", "print", "pull",
+        "reframe", "relocate", "rename", "rename_with", "right_join",
+        "rows_append", "rows_delete", "rows_insert", "rows_patch", "rows_update",
+        "rows_upsert", "rowwise", "select", "semi_join", "setdiff", "setequal",
+        "slice", "slice_head", "slice_sample", "slice_tail", "summarise",
+        "symdiff", "transmute", "ungroup", "union", "union_all"
+      ),
+      path = Sys.getenv("COLLECTOR_PATH")
+    )
   }
 
   ns_dplyr <- ns_env(pkgname)
