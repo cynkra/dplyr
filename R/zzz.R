@@ -1,4 +1,9 @@
 .onLoad <- function(libname, pkgname) {
+  if (Sys.getenv("COLLECTOR_PATH") != "") {
+    dir.create(Sys.getenv("COLLECTOR_PATH"), recursive = TRUE, showWarnings = FALSE)
+    collector::set_collector(path = Sys.getenv("COLLECTOR_PATH"))
+  }
+
   ns_dplyr <- ns_env(pkgname)
 
   op <- options()
