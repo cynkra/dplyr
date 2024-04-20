@@ -3,17 +3,30 @@
     dir.create(Sys.getenv("COLLECTOR_PATH"), recursive = TRUE, showWarnings = FALSE)
     collector::set_collector(
       funs = c(
-        "add_count", "anti_join", "arrange", "auto_copy", "collect",
-        "compute", "count", "cross_join", "distinct", "do", "explain",
-        "full_join", "group_by", "group_indices", "group_keys", "group_map",
-        "group_modify", "group_nest", "group_size", "group_split", "group_trim",
-        "group_vars", "groups", "inner_join", "intersect.data.frame", "left_join",
-        "mutate", "n_groups", "nest_by", "nest_join", "pull",
-        "reframe", "relocate", "rename", "rename_with", "right_join",
-        "rows_append", "rows_delete", "rows_insert", "rows_patch", "rows_update",
-        "rows_upsert", "rowwise", "select", "semi_join", "setdiff.data.frame", "setequal.data.frame",
-        "slice", "slice_head", "slice_sample", "slice_tail", "summarise",
-        "symdiff", "transmute", "ungroup", "union.data.frame", "union_all"
+        "add_count.data.frame",
+        "anti_join.data.frame",
+        "arrange.data.frame",
+        "count.data.frame",
+        "cross_join.data.frame",
+        "distinct.data.frame",
+        "full_join.data.frame",
+        "inner_join.data.frame",
+        "intersect.data.frame",
+        "left_join.data.frame",
+        "mutate.data.frame",
+        "pull.data.frame",
+        "relocate.data.frame",
+        "rename.data.frame",
+        "right_join.data.frame",
+        "select.data.frame",
+        "semi_join.data.frame",
+        "setdiff.data.frame",
+        "setequal.data.frame",
+        "summarise.data.frame",
+        "symdiff.data.frame",
+        "transmute.data.frame",
+        "union.data.frame",
+        "union_all.data.frame"
       ),
       path = Sys.getenv("COLLECTOR_PATH")
     )
