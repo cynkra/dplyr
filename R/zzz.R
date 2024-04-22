@@ -1,3 +1,30 @@
+collect_if_duckplyr_differs <- function(call, env, calls, value) {
+  withr::local_envvar(DUCKPLYR_OUTPUT_ORDER = TRUE)
+
+  call_name <- as.character(call[[1]])
+  if (length(call_name) > 1) {
+    return()
+  }
+
+  call_name <- paste0(gsub("[.]data[.]frame$", "", call_name), ".duckplyr_df")
+  duckplyr_call <- call
+  duckplyr_call[[1]] <- call2(":::", sym("duckplyr"), sym(call_name))
+
+  withr::local_envvar(DUCKPLYR_OUTPUT_ORDER = TRUE)
+  local_options(duckdb.materialize_message = FALSE)
+
+  duckplyr <- try({ out <- eval(duckplyr_call, env); NROW(out); out })
+
+  if (!identical(duckplyr, value)) {
+    collector::default_collector_fun(
+      call = call,
+      env = env,
+      calls = calls,
+      value = list(duckplyr_call = duckplyr_call, dplyr = value, duckplyr = duckplyr)
+    )
+  }
+}
+
 .onLoad <- function(libname, pkgname) {
   if (Sys.getenv("COLLECTOR_PATH") != "") {
     dir.create(Sys.getenv("COLLECTOR_PATH"), recursive = TRUE, showWarnings = FALSE)
@@ -29,6 +56,8 @@
         "union.data.frame",
         "union_all"
       ),
+
+      collector_fun = collect_if_duckplyr_differs,
       path = Sys.getenv("COLLECTOR_PATH")
     )
   }
