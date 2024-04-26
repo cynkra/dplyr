@@ -57,7 +57,7 @@ collect_if_duckplyr_differs <- function(call, env, calls, value) {
         "union_all"
       ),
 
-      collector_fun = collect_if_duckplyr_differs,
+      # collector_fun = collect_if_duckplyr_differs,
       path = Sys.getenv("COLLECTOR_PATH")
     )
   }
